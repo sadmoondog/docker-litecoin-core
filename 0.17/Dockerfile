@@ -2,7 +2,7 @@ FROM debian:stretch-slim as builder
 
 RUN set -ex \
 	&& apt-get update \
-	&& apt-get install -qq --no-install-recommends ca-certificates dirmngr gpg wget \
+	&& apt-get install -qq --no-install-recommends ca-certificates dirmngr gpg wget curl \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV LITECOIN_VERSION=0.17.1
@@ -26,19 +26,6 @@ COPY --from=builder /usr/local/bin/litecoind /usr/local/bin/litecoin-cli /usr/lo
 RUN groupadd -r litecoin && useradd -r -m -g litecoin litecoin \
 	&& ln -s /usr/local/bin/litecoin-cli /usr/local/bin/c
 
-RUN apt-get install -y curl gnupg \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && set -ex \
-  && for key in \
-    B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    FE3348877809386C \
-  ; do \
-    gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
-    gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" || \
-    gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ; \
-  done
 
 ENV GOSU_VERSION=1.10
 
