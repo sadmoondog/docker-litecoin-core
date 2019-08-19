@@ -4,7 +4,7 @@ RUN set -ex \
 	&& apt-get update \
 	&& apt-get install -qq --no-install-recommends ca-certificates dirmngr gpg wget curl \
 	&& rm -rf /var/lib/apt/lists/*
-  && for key in \
+  for key in \
     B42F6819007F00F88E364FD4036A9C25BF357DD4 \
     FE3348877809386C \
   ; do \
