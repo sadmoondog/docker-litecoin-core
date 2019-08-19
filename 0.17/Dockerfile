@@ -2,7 +2,8 @@ FROM debian:stretch-slim as builder
 
 RUN set -ex \
 	&& apt-get update \
-	&& apt-get install -qq --no-install-recommends ca-certificates dirmngr gpg wget curl gnupg \
+	&& apt-get install -qq --no-install-recommends ca-certificates dirmngr gpg wget \
+  && apt-get install -y curl gnupg \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
