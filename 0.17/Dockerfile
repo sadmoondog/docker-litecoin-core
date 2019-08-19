@@ -26,10 +26,7 @@ COPY --from=builder /usr/local/bin/litecoind /usr/local/bin/litecoin-cli /usr/lo
 RUN groupadd -r litecoin && useradd -r -m -g litecoin litecoin \
 	&& ln -s /usr/local/bin/litecoin-cli /usr/local/bin/c
 
-RUN apt-get install -y curl gnupg \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && set -ex \
+RUN set -ex \
   && for key in \
     B42F6819007F00F88E364FD4036A9C25BF357DD4 \
     FE3348877809386C \
