@@ -20,12 +20,12 @@ RUN set -ex \
 	&& gpg --no-tty --keyserver keyserver.ubuntu.com --recv-keys "$LITECOIN_PGP_KEY" \
 	&& wget -qO litecoin.asc "$LITECOIN_ASC_URL" \
 	&& gpg --verify litecoin.asc \
-	&& tar -xzvf litecoin.tar.gz -C /usr/local --strip-components=1 --exclude=*-qt
+	&& tar -xzvf litecoin.tar.gz -C /usr/local --strip-components=1 --exclude=*-qt \
 	&& wget -qO /usr/local/bin/gosu https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(dpkg --print-architecture) \
 	&& wget -qO /usr/local/bin/gosu.asc https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(dpkg --print-architecture).asc \
 	&& gpg --verify /usr/local/bin/gosu.asc \
 	&& rm /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu	
+	&& chmod +x /usr/local/bin/gosu
 
 
 FROM debian:stretch-slim
