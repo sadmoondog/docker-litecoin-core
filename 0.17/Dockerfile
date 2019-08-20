@@ -31,10 +31,9 @@ RUN set -ex \
 
 FROM debian:stretch-slim
 COPY --from=builder /usr/local/bin/litecoind /usr/local/bin/litecoin-cli /usr/local/bin/
+COPY --from=builder /usr/local/bin/gosu /usr/local/bin/
 RUN groupadd -r litecoin && useradd -r -m -g litecoin litecoin \
 	&& ln -s /usr/local/bin/litecoin-cli /usr/local/bin/c
-
-
 
 ENV LITECOIN_DATA=/home/litecoin/.litecoin
 
