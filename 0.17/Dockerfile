@@ -36,9 +36,6 @@ RUN groupadd -r litecoin && useradd -r -m -g litecoin litecoin \
 
 
 
-
-RUN
-
 ENV LITECOIN_DATA=/home/litecoin/.litecoin
 
 
