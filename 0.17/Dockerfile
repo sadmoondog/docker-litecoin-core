@@ -21,6 +21,11 @@ RUN set -ex \
 	&& wget -qO litecoin.asc "$LITECOIN_ASC_URL" \
 	&& gpg --verify litecoin.asc \
 	&& tar -xzvf litecoin.tar.gz -C /usr/local --strip-components=1 --exclude=*-qt
+	&& wget -qO /usr/local/bin/gosu https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(dpkg --print-architecture) \
+	&& wget -qO /usr/local/bin/gosu.asc https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(dpkg --print-architecture).asc \
+	&& gpg --verify /usr/local/bin/gosu.asc \
+	&& rm /usr/local/bin/gosu.asc \
+	&& chmod +x /usr/local/bin/gosu	
 
 
 FROM debian:stretch-slim
@@ -31,11 +36,7 @@ RUN groupadd -r litecoin && useradd -r -m -g litecoin litecoin \
 
 ENV GOSU_VERSION=1.11
 
-RUN wget -qO /usr/local/bin/gosu https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(dpkg --print-architecture) \
-	&& wget -qO /usr/local/bin/gosu.asc https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(dpkg --print-architecture).asc \
-  && gpg --verify /usr/local/bin/gosu.asc \
-  && rm /usr/local/bin/gosu.asc \
-  && chmod +x /usr/local/bin/gosu
+RUN
 
 ENV LITECOIN_DATA=/home/litecoin/.litecoin
 
