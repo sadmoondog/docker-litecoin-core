@@ -8,6 +8,7 @@ RUN set -ex \
   && gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 
 ENV LITECOIN_VERSION=0.17.1
+ENV GOSU_VERSION=1.11
 ENV	LITECOIN_URL=https://download.litecoin.org/litecoin-$LITECOIN_VERSION/linux/litecoin-$LITECOIN_VERSION-x86_64-linux-gnu.tar.gz \
 	LITECOIN_SHA256=9cab11ba75ea4fb64474d4fea5c5b6851f9a25fe9b1d4f7fc9c12b9f190fed07 \
 	LITECOIN_ASC_URL=https://download.litecoin.org/litecoin-$LITECOIN_VERSION/SHA256SUMS.asc \
@@ -34,7 +35,7 @@ RUN groupadd -r litecoin && useradd -r -m -g litecoin litecoin \
 	&& ln -s /usr/local/bin/litecoin-cli /usr/local/bin/c
 
 
-ENV GOSU_VERSION=1.11
+
 
 RUN
 
