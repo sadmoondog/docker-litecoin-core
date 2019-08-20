@@ -10,7 +10,16 @@ RUN useradd -r litecoin \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && set -ex \
-  && gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+  && for key in \
+    B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+    FE3348877809386C \
+  ; do \
+	  gpg --keyserver hkps://keys.openpgp.org --recv-keys "$key" || \
+    gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
+    gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" || \
+    gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" ; \
+  done
 
 ENV GOSU_VERSION=1.11
 
